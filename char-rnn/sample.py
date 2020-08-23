@@ -43,9 +43,11 @@ def sample(args):
         ckpt = tf.train.get_checkpoint_state(args.save_dir)
         if ckpt and ckpt.model_checkpoint_path:
             saver.restore(sess, ckpt.model_checkpoint_path)
-            while true:
+            while True:
                 user_input = input('\n> ')
-                data = model.sample(sess, chars, vocab, args.n, args.prime,
+                if user_input == '':
+                    user_input = chars[0]
+                data = model.sample(sess, chars, vocab, args.n, user_input,
                                    args.sample).encode('utf-8')
                 print(data.decode("utf-8"))
 

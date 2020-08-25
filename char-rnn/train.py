@@ -11,9 +11,9 @@ from six.moves import cPickle
 parser = argparse.ArgumentParser(
                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 # Data and model checkpoints directories
-parser.add_argument('--data_dir', type=str, default='data/alphabet',
+parser.add_argument('--data_dir', type=str, default='data/newdata',
                     help='data directory containing input.txt with training examples')
-parser.add_argument('--save_dir', type=str, default='save',
+parser.add_argument('--save_dir', type=str, default='save/newdata',
                     help='directory to store checkpointed models')
 parser.add_argument('--log_dir', type=str, default='logs',
                     help='directory to store tensorboard logs')
@@ -59,7 +59,7 @@ args = parser.parse_args()
 
 import tensorflow as tf
 from utils import TextLoader
-from model import Model
+from rnnmodel import RNNModel
 
 def train(args):
     data_loader = TextLoader(args.data_dir, args.batch_size, args.seq_length)
@@ -94,7 +94,7 @@ def train(args):
     with open(os.path.join(args.save_dir, 'chars_vocab.pkl'), 'wb') as f:
         cPickle.dump((data_loader.chars, data_loader.vocab), f)
 
-    model = Model(args)
+    model = RNNModel(args)
 
     with tf.Session() as sess:
         # instrument for tensorboard

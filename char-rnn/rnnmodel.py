@@ -5,7 +5,7 @@ from tensorflow.contrib import legacy_seq2seq
 import numpy as np
 
 
-class Model():
+class RNNModel():
     def __init__(self, args, training=True):
         self.args = args
         if not training:
@@ -43,7 +43,7 @@ class Model():
         self.initial_state = cell.zero_state(args.batch_size, tf.float32)
 
         # softmax output layer, use softmax to classify
-        with tf.variable_scope('rnnlm'):
+        with tf.variable_scope('rnnlm', reuse=tf.AUTO_REUSE):
             softmax_w = tf.get_variable("softmax_w",
                                         [args.rnn_size, args.vocab_size])
             softmax_b = tf.get_variable("softmax_b", [args.vocab_size])
@@ -124,7 +124,7 @@ class Model():
             if sampling_type == 0:
                 sample = np.argmax(p)
             elif sampling_type == 2:
-                if char == ' ':
+                if char == ' ' or char == '\n':
                     sample = weighted_pick(p)
                 else:
                     sample = np.argmax(p)

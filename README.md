@@ -1,0 +1,1 @@
+Using forks of https://github.com/pender/chatbot-rnn and https://github.com/sherjilozair/char-rnn-tensorflow

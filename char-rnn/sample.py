@@ -12,7 +12,7 @@ from six import text_type
 
 parser = argparse.ArgumentParser(
                    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('--save_dir', type=str, default='save',
+parser.add_argument('--save_dir', type=str, default='char-rnn/save/shakespear',
                     help='model directory to store checkpointed models')
 parser.add_argument('-n', type=int, default=500,
                     help='number of characters to sample')

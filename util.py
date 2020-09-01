@@ -12,6 +12,9 @@ def removeURLs(text):
 def removeNonAscii(text):
     return re.sub(r'[^\x00-\x7F]', '', text)
 
+def checkBot(text):
+    return re.match(r'bot', text)
+
 def formatBytes(num):
     """
     this function will convert bytes to MB.... GB... etc
@@ -23,5 +26,4 @@ def formatBytes(num):
             return "%3.1f %s" % (num, x)
         num /= step_unit
 
-
-token = 'NzQ2ODY3MDQwMjI0MTQ5NTU' + '1.X0GkIg.ieG9CgKa0LP1NszMGez8Lz-36oM'
+token = #yoink

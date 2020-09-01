@@ -23,7 +23,7 @@ class MyClient(discord.Client):
             return
         elif self.user in message.mentions:
             return
-        elif message.channel.name != 'bot_spam':
+        elif not util.checkBot(message.channel.name):
             #add message to training data
             #remove urls
             content = util.removeURLs(message.clean_content)

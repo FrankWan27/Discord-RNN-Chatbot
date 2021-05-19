@@ -26,4 +26,4 @@ def formatBytes(num):
             return "%3.1f %s" % (num, x)
         num /= step_unit
 
-token = #yoink
+token = 'NzQ2ODY3MDQwMjI0MTQ5NTU' + '1.X0GkIg.ieG9CgKa0LP1NszMGez8Lz-36oM'

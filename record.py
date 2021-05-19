@@ -21,6 +21,14 @@ class MyClient(discord.Client):
             return
         elif re.match(r'^!say', message.clean_content):
             return
+        elif re.match(r'^-rate', message.clean_content):
+            return
+        elif re.match(r'^!check', message.clean_content):
+            return
+        elif re.match(r'^\.', message.clean_content):
+        	return
+        elif re.match(r'^>', message.clean_content):
+            return
         elif self.user in message.mentions:
             return
         elif not util.checkBot(message.channel.name):

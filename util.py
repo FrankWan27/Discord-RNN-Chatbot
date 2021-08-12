@@ -1,4 +1,5 @@
 import re
+import secret
 
 def removeEmotes(text):
     return re.sub(r'<.*:[0-9]*>', '', text)
@@ -26,4 +27,4 @@ def formatBytes(num):
             return "%3.1f %s" % (num, x)
         num /= step_unit
 
-token = 'NzQ2ODY3MDQwMjI0MTQ5NTU' + '1.X0GkIg.ieG9CgKa0LP1NszMGez8Lz-36oM'
+token = secret.token

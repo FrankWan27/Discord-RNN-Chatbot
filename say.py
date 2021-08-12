@@ -3,8 +3,9 @@ import re
 import util
 import os
 import openai
+import secret
 
-openai.api_key = 'sk-RE5GV2cF8sx3zbdOWq1' + 't5eW9cfPGDRAL6Ey2Q6xs'
+openai.api_key = secret.openai
 
 promptBase = "The following is a conversation with an AI assistant. The assistant is "
 

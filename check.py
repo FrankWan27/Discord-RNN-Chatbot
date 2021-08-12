@@ -11,7 +11,7 @@ from discord.ext import tasks
 header = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36" ,'referer':'https://www.google.com/'}
 giantURL = 'https://giantfoodsched.rxtouch.com/rbssched/program/covid19/Patient/Advisory'
 cvsURL = 'https://www.cvs.com/immunizations/covid-19-vaccine?icid=coronavirus-lp-nav-vaccine'
-
+kittenURL = 'https://www.kimuradolls.com/kittens'
 def getGiant():
     response = requests.get(giantURL, headers=header)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -33,6 +33,14 @@ def getCVS():
     
     return 'Text changed somehow, vaccines might be available!'
 
+def getKitten():
+    response = requests.get(kittenURL, headers=header)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    info = soup.find(id='comp-koqjyg0f')
+    if info is not None:
+        return info.text
+    return 'Text not found error'
+
 class MyClient(discord.Client):
     @tasks.loop(seconds=30)
     async def checkGiant(self): 
@@ -49,11 +57,20 @@ class MyClient(discord.Client):
             await self.get_channel(826174048215498772).send('There was a change at https://www.cvs.com/immunizations/covid-19-vaccine?icid=coronavirus-lp-nav-vaccine\n' + text)   
         # else:
         #     await self.get_channel(826174048215498772).send('No change at https://www.cvs.com/immunizations/covid-19-vaccine?icid=coronavirus-lp-nav-vaccine\n' + text)
+    
+    @tasks.loop(seconds=30)
+    async def checkKitten(self): 
+        text = getKitten()
+        if text != 'We have no kittens available for reservation at this time, please check back as we plan to have kittens available in June.':
+            await self.get_channel(844632342873243678).send('GO BUY A KITTEN SUZY Maybee#0034\n' + text)   
+        else:
+            await self.get_channel(844634166196437032).send(text)
 
     async def on_ready(self):
         print('!check Ready! ', self.user, flush=True)
         #self.checkGiant.start()
-        self.checkCVS.start()
+        #self.checkCVS.start()
+        self.checkKitten.start()
 
     async def on_message(self, message):
         # don't respond to ourselves
@@ -70,8 +87,10 @@ class MyClient(discord.Client):
                     output = getGiant()
                 elif 'cvs' in content:
                     output = getCVS()
+                elif 'kitten' in content:
+                	output = getKitten()
                 else:
-                    output = 'Unknown website, currently only supporting `!check cvs` and `!check giant`'
+                    output = 'Unknown website, currently only supporting `!check cvs` and `!check giant` and `!check kitten`'
 
             await message.channel.send(output)
 
